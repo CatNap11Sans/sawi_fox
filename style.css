@@ -137,3 +137,19 @@ input {
   height: 28px;
   border-radius: 50%;
 }
+
+.btn-discord {
+  background: rgb(17, 28, 122);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.alerta {
+  margin-top: 10px;
+  color: #ccc;
+  font-size: 14px;
+}
