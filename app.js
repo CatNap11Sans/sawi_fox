@@ -153,3 +153,10 @@ function verificarDiscord() {
   }
 }
 
+// ===== LOGIN DISCORD (placeholder) =====
+function loginDiscord() {
+  mostrarMensagem(
+    "Login com Discord ainda não implementado 😅 Em breve!",
+    "erro"
+  );
+}
