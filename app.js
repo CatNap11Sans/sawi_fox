@@ -1,3 +1,4 @@
+alert("app.js carregou");
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
