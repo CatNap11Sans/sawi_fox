@@ -11,6 +11,7 @@ const firebaseConfig = {
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
 // ===== TROCA DE TELAS =====
 function esconderTudo() {
@@ -93,4 +94,14 @@ function mostrarMensagem(texto, tipo = "sucesso") {
   setTimeout(() => {
     msg.classList.add("hidden");
   }, 4000);
+  
+  // ===== LEMBRAR LOGIN =====
+auth.onAuthStateChanged(user => {
+  if (user && user.emailVerified) {
+    mostrarPainel();
+  } else {
+    esconderTudo();
+    document.getElementById("inicio").classList.remove("hidden");
+  }
+});
 }
