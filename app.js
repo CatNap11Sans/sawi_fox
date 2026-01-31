@@ -1,67 +1,96 @@
-alert("app.js carregou");
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Sawi Fox Studios</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+// 🔥 CONFIG FIREBASE
+const firebaseConfig = {
+  apiKey: "AIzaSyAiXTSfRXzVc-SJ1jUE9YMdWeSySjRzlk4",
+  authDomain: "sawi-fox-studios.firebaseapp.com",
+  projectId: "sawi-fox-studios",
+  storageBucket: "sawi-fox-studios.firebasestorage.app",
+  messagingSenderId: "711125652228",
+  appId: "1:711125652228:web:61bad28c505475a5cfb651"
+};
 
-<body>
+// Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-<!-- MENSAGENS -->
-<div id="mensagem" class="mensagem hidden"></div>
+// ===== TROCA DE TELAS =====
+function esconderTudo() {
+  document.querySelectorAll(".card")
+    .forEach(el => el.classList.add("hidden"));
+}
 
-<!-- TELA INICIAL -->
-<div id="inicio" class="card">
-  <h1>Bem vindo a Sawi Fox Studios</h1>
-  <p>nossa plataforma de desenvolvedores! Para continuar faça login ou increva-se!</p>
+function mostrarLogin() {
+  esconderTudo();
+  document.getElementById("login").classList.remove("hidden");
+}
 
-  <button class="btn branco" onclick="mostrarLogin()">Fazer login</button>
-  <button class="btn cinza" onclick="mostrarRegistro()">Registrar-se</button>
+function mostrarRegistro() {
+  esconderTudo();
+  document.getElementById("registro").classList.remove("hidden");
+}
 
-  <div class="social">
-    <a href="https://discord.gg/snEaD2WN85" title="Entrar servidor Discord">📀</a>
-    <a href="https://www.reddit.com/r/Sawi_Fox/" title="Entrar servidor Reddit">💣</a>
-  </div>
-</div>
+// ===== ERROS FIREBASE =====
+function tratarErroFirebase(err) {
+  switch (err.code) {
+    case "auth/invalid-email":
+      return "Email inválido.";
+    case "auth/email-already-in-use":
+      return "Email já cadastrado.";
+    case "auth/weak-password":
+      return "Senha fraca (mín. 6 caracteres).";
+    case "auth/user-not-found":
+      return "Usuário não encontrado.";
+    case "auth/wrong-password":
+      return "Senha incorreta.";
+    default:
+      return "Erro inesperado. Tente novamente.";
+  }
+}
 
-<!-- LOGIN -->
-<div id="login" class="card hidden">
-  <h2>Fazer login</h2>
+// ===== REGISTRAR =====
+function registrar() {
+  const email = document.getElementById("regEmail").value;
+  const senha = document.getElementById("regSenha").value;
 
-  <input type="email" id="loginEmail" placeholder="Digite seu email">
-  <input type="password" id="loginSenha" placeholder="Insira sua senha">
+  auth.createUserWithEmailAndPassword(email, senha)
+    .then(userCredential => {
+      userCredential.user.sendEmailVerification();
+      mostrarMensagem("Conta criada! Verifique seu email.", "sucesso");
+      mostrarLogin();
+    })
+    .catch(err => mostrarMensagem(tratarErroFirebase(err), "erro"));
+}
 
-  <button class="btn branco" onclick="login()">Fazer login</button>
+// ===== LOGIN =====
+function login() {
+  const email = document.getElementById("loginEmail").value;
+  const senha = document.getElementById("loginSenha").value;
 
-  <p class="link" onclick="mostrarRegistro()">Não tem uma conta? Clique aqui!</p>
-</div>
+  auth.signInWithEmailAndPassword(email, senha)
+    .then(userCredential => {
+      if (!userCredential.user.emailVerified) {
+        mostrarMensagem("Verifique seu email antes de entrar.", "erro");
+        auth.signOut();
+        return;
+      }
+      mostrarPainel();
+    })
+    .catch(err => mostrarMensagem(tratarErroFirebase(err), "erro"));
+}
 
-<!-- REGISTRO -->
-<div id="registro" class="card hidden">
-  <h2>Registrar</h2>
+// ===== PAINEL =====
+function mostrarPainel() {
+  esconderTudo();
+  document.getElementById("painel").classList.remove("hidden");
+}
 
-  <input type="email" id="regEmail" placeholder="Digite seu email">
-  <input type="password" id="regSenha" placeholder="Crie sua senha">
+// ===== MENSAGEM =====
+function mostrarMensagem(texto, tipo = "sucesso") {
+  const msg = document.getElementById("mensagem");
+  msg.textContent = texto;
+  msg.className = `mensagem ${tipo}`;
+  msg.classList.remove("hidden");
 
-  <button class="btn branco" onclick="registrar()">Registrar</button>
-
-  <p class="link" onclick="mostrarLogin()">Já tem uma conta? Clique aqui!</p>
-</div>
-
-<!-- PAINEL -->
-<div id="painel" class="card hidden">
-  <h1>Bem vindo ao nosso painel!</h1>
-  <p>Ele está em desenvolvimento então espere para descobrir mais...</p>
-</div>
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-
-<!-- Seu JS -->
-<script src="app.js"></script>
-
-</body>
-</html>
+  setTimeout(() => {
+    msg.classList.add("hidden");
+  }, 4000);
+}
