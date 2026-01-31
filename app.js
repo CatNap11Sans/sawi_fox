@@ -39,7 +39,8 @@ function registrar() {
       mostrarMensagem("Conta criada! Verifique seu email.", "sucesso");
       mostrarLogin();
     })
-    .catch(err => alert(err.message));
+    .catch(err => mostrarMensagem(err.message, "erro"));
+
 }
 
 // ===== LOGIN =====
