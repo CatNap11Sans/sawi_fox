@@ -1,2 +1,50 @@
-<h1>Sawi Fox Studios</h1>
-<p>Site funcionando!</p>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Sawi Fox Studios</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- TELA INICIAL -->
+<div id="inicio" class="card">
+  <h1>Bem vindo a Sawi Fox Studios</h1>
+  <p>nossa plataforma de desenvolvedores! Para continuar faça login ou increva-se!</p>
+
+  <button class="btn branco" onclick="mostrarLogin()">Fazer login</button>
+  <button class="btn cinza" onclick="mostrarRegistro()">Registrar-se</button>
+
+  <div class="social">
+    <a href="https://discord.gg/snEaD2WN85" title="Entrar servidor Discord">💬</a>
+    <a href="https://www.reddit.com/r/Sawi_Fox/" title="Entrar servidor Reddit">👽</a>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="card hidden">
+  <h2>Fazer login</h2>
+
+  <input type="email" placeholder="Digite seu email">
+  <input type="password" placeholder="Insira sua senha">
+
+  <button class="btn branco">Fazer login</button>
+
+  <p class="link" onclick="mostrarRegistro()">Não tem uma conta? Clique aqui!</p>
+</div>
+
+<!-- REGISTRO -->
+<div id="registro" class="card hidden">
+  <h2>Registrar</h2>
+
+  <input type="email" placeholder="Digite seu email">
+  <input type="password" placeholder="Crie sua senha">
+
+  <button class="btn branco">Registrar</button>
+
+  <p class="link" onclick="mostrarLogin()">Já tem uma conta? Clique aqui!</p>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
