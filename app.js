@@ -63,8 +63,18 @@ function registrar() {
 
 // ===== LOGIN =====
 function login() {
-  const email = document.getElementById("loginEmail").value;
+  const email = document.getElementById("loginEmail").value.trim();
   const senha = document.getElementById("loginSenha").value;
+
+  if (!email || !senha) {
+    mostrarMensagem("Preencha todos os campos.", "erro");
+    return;
+  }
+
+  if (!email.includes("@")) {
+    mostrarMensagem("Digite um email válido.", "erro");
+    return;
+  }
 
   auth.signInWithEmailAndPassword(email, senha)
     .then(userCredential => {
@@ -75,7 +85,9 @@ function login() {
       }
       mostrarPainel();
     })
-    .catch(err => mostrarMensagem(tratarErroFirebase(err), "erro"));
+    .catch(err => {
+      mostrarMensagem(tratarErroFirebase(err), "erro");
+    });
 }
 
 // ===== PAINEL =====
@@ -94,7 +106,7 @@ function mostrarMensagem(texto, tipo = "sucesso") {
   setTimeout(() => {
     msg.classList.add("hidden");
   }, 4000);
-  
+}
   // ===== LEMBRAR LOGIN =====
 auth.onAuthStateChanged(user => {
   if (user && user.emailVerified) {
@@ -104,4 +116,4 @@ auth.onAuthStateChanged(user => {
     document.getElementById("inicio").classList.remove("hidden");
   }
 });
-}
+
