@@ -72,18 +72,23 @@
   </button>
 </div>
 
-  <!-- PERFIL -->
+<!-- PERFIL -->
 <div id="perfil" class="card hidden">
-  <p class="breadcrumb">Home &gt; Perfil</p>
+  <h2>Perfil</h2>
 
-  <h2>Informações da conta</h2>
-
-  <p><strong>Email:</strong> <span id="perfilEmail"></span></p>
+  <p><strong>Email:</strong> <span id="perfilEmail">---</span></p>
   <p><strong>Senha:</strong> ********</p>
 
-  <hr>
+  <p><strong>Usuário Discord:</strong>
+    <span id="discordUser">Não conectado</span>
+  </p>
 
-  <div id="discordArea"></div>
+  <button
+    id="btnDiscord"
+    class="btn-discord"
+    onclick="loginDiscord()">
+    Conectar Discord
+  </button>
 </div>
 
 </body>
