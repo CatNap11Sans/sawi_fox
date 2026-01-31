@@ -159,3 +159,37 @@ function verificarDiscord() {
 function loginDiscord() {
   window.location.href = "http://localhost:3000/auth/discord";
 }
+
+// ===== DISCORD CALLBACK (OAuth2) =====
+const params = new URLSearchParams(window.location.search)
+
+const id = params.get("id")
+const username = params.get("username")
+const avatar = params.get("avatar")
+
+if (id) {
+  const userData = { id, username, avatar }
+
+  // 💾 Salvar login do Discord
+  localStorage.setItem("discordUser", JSON.stringify(userData))
+
+  // Limpa a URL (remove ?id=...)
+  window.history.replaceState({}, document.title, window.location.pathname)
+}
+
+// ===== CARREGAR PERFIL DISCORD =====
+const savedUser = JSON.parse(localStorage.getItem("discordUser"))
+
+if (savedUser) {
+  const userEl = document.getElementById("user")
+  const avatarEl = document.getElementById("avatar")
+  const btnDiscord = document.getElementById("btnDiscord")
+
+  if (userEl && avatarEl) {
+    userEl.innerText = `Logado como ${savedUser.username}`
+    avatarEl.src = `https://cdn.discordapp.com/avatars/${savedUser.id}/${savedUser.avatar}.png`
+    avatarEl.style.display = "block"
+  }
+
+  if (btnDiscord) btnDiscord.style.display = "none"
+}
