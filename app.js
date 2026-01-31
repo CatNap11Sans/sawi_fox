@@ -56,10 +56,7 @@ function registrar() {
       mostrarMensagem("Conta criada! Verifique seu email.", "sucesso");
       mostrarLogin();
     })
-.catch(err => mostrarMensagem(tratarErroFirebase(err), "erro"));
-});
-
-
+    .catch(err => mostrarMensagem(tratarErroFirebase(err), "erro"));
 }
 
 // ===== LOGIN =====
