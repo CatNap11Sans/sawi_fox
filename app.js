@@ -107,6 +107,9 @@ function mostrarMensagem(texto, tipo = "sucesso") {
     msg.classList.add("hidden");
   }, 4000);
 }
+function loginDiscord() {
+  window.location.href = "http://localhost:3000/auth/discord";
+}
   // ===== LEMBRAR LOGIN =====
 auth.onAuthStateChanged(user => {
   if (user && user.emailVerified) {
@@ -153,10 +156,6 @@ function verificarDiscord() {
   }
 }
 
-// ===== LOGIN DISCORD (placeholder) =====
 function loginDiscord() {
-  mostrarMensagem(
-    "Login com Discord ainda não implementado 😅 Em breve!",
-    "erro"
-  );
+  window.location.href = "http://localhost:3000/auth/discord";
 }
