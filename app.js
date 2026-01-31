@@ -117,3 +117,39 @@ auth.onAuthStateChanged(user => {
   }
 });
 
+function abrirPerfil() {
+  esconderTudo();
+  document.getElementById("perfil").classList.remove("hidden");
+
+  const user = auth.currentUser;
+  document.getElementById("perfilEmail").textContent = user.email;
+
+  verificarDiscord();
+}
+
+function verificarDiscord() {
+  const discordArea = document.getElementById("discordArea");
+
+  // simulação (depois isso vem do backend)
+  const discordLogado = false;
+
+  if (!discordLogado) {
+    discordArea.innerHTML = `
+      <p><strong>Usuário Discord:</strong> Não conectado</p>
+
+      <button class="btn-discord" onclick="loginDiscord()">
+        Conectar Discord
+      </button>
+
+      <p class="alerta">
+        Olá! Notamos que seu email não tem uma conta Discord logada!<br>
+        Faça login no Discord para desfrutar da Sawi Fox!
+      </p>
+    `;
+  } else {
+    discordArea.innerHTML = `
+      <p><strong>Usuário Discord:</strong> SawiFox#1234</p>
+    `;
+  }
+}
+
