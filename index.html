@@ -5,7 +5,11 @@
   <title>Sawi Fox Studios</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+<!-- MENSAGENS -->
+<div id="mensagem" class="mensagem hidden"></div>
 
 <!-- TELA INICIAL -->
 <div id="inicio" class="card">
@@ -27,9 +31,8 @@
 
   <input type="email" id="loginEmail" placeholder="Digite seu email">
   <input type="password" id="loginSenha" placeholder="Insira sua senha">
- 
-  <button class="btn branco" onclick="login()">Fazer login</button>
 
+  <button class="btn branco" onclick="login()">Fazer login</button>
 
   <p class="link" onclick="mostrarRegistro()">Não tem uma conta? Clique aqui!</p>
 </div>
@@ -43,22 +46,21 @@
 
   <button class="btn branco" onclick="registrar()">Registrar</button>
 
-
   <p class="link" onclick="mostrarLogin()">Já tem uma conta? Clique aqui!</p>
 </div>
-  <div id="mensagem" class="mensagem hidden"></div>
-  <!-- PAINEL -->
+
+<!-- PAINEL -->
 <div id="painel" class="card hidden">
   <h1>Bem vindo ao nosso painel!</h1>
   <p>Ele está em desenvolvimento então espere para descobrir mais...</p>
 </div>
 
-
-  <!-- Firebase SDK -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
-<script src="./app.js"></script>
+<!-- Seu JS -->
+<script src="app.js"></script>
 
 </body>
 </html>
