@@ -25,10 +25,11 @@
 <div id="login" class="card hidden">
   <h2>Fazer login</h2>
 
-  <input type="email" placeholder="Digite seu email">
-  <input type="password" placeholder="Insira sua senha">
+  <input type="email" id="loginEmail" placeholder="Digite seu email">
+  <input type="password" id="loginSenha" placeholder="Insira sua senha">
+ 
+  <button class="btn branco" onclick="login()">Fazer login</button>
 
-  <button class="btn branco">Fazer login</button>
 
   <p class="link" onclick="mostrarRegistro()">Não tem uma conta? Clique aqui!</p>
 </div>
@@ -37,10 +38,11 @@
 <div id="registro" class="card hidden">
   <h2>Registrar</h2>
 
-  <input type="email" placeholder="Digite seu email">
-  <input type="password" placeholder="Crie sua senha">
+  <input type="email" id="regEmail" placeholder="Digite seu email">
+  <input type="password" id="regSenha" placeholder="Crie sua senha">
 
-  <button class="btn branco">Registrar</button>
+  <button class="btn branco" onclick="registrar()">Registrar</button>
+
 
   <p class="link" onclick="mostrarLogin()">Já tem uma conta? Clique aqui!</p>
 </div>
