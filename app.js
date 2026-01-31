@@ -36,7 +36,7 @@ function registrar() {
   auth.createUserWithEmailAndPassword(email, senha)
     .then(userCredential => {
       userCredential.user.sendEmailVerification();
-      alert("Conta criada! Verifique seu email.");
+      mostrarMensagem("Conta criada! Verifique seu email.", "sucesso");
       mostrarLogin();
     })
     .catch(err => alert(err.message));
@@ -50,17 +50,27 @@ function login() {
   auth.signInWithEmailAndPassword(email, senha)
     .then(userCredential => {
       if (!userCredential.user.emailVerified) {
-        alert("Verifique seu email antes de entrar.");
+        mostrarMensagem("Verifique seu email antes de entrar.", "erro");
         auth.signOut();
         return;
       }
       mostrarPainel();
     })
-    .catch(err => alert(err.message));
+    .catch(err => mostrarMensagem(err.message, "erro"));
 }
 
 // ===== PAINEL =====
 function mostrarPainel() {
   esconderTudo();
   document.getElementById("painel").classList.remove("hidden");
+}
+function mostrarMensagem(texto, tipo = "sucesso") {
+  const msg = document.getElementById("mensagem");
+  msg.textContent = texto;
+  msg.className = `mensagem ${tipo}`;
+  msg.classList.remove("hidden");
+
+  setTimeout(() => {
+    msg.classList.add("hidden");
+  }, 4000);
 }
