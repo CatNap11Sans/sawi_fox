@@ -27,6 +27,23 @@ function mostrarRegistro() {
   esconderTudo();
   document.getElementById("registro").classList.remove("hidden");
 }
+// ===== MENSAGENS DE ERRO =====
+function tratarErroFirebase(err) {
+  switch (err.code) {
+    case "auth/invalid-email":
+      return "Email inválido.";
+    case "auth/email-already-in-use":
+      return "Email já cadastrado.";
+    case "auth/weak-password":
+      return "Senha fraca (mín. 6 caracteres).";
+    case "auth/user-not-found":
+      return "Usuário não encontrado.";
+    case "auth/wrong-password":
+      return "Senha incorreta.";
+    default:
+      return "Erro inesperado. Tente novamente.";
+  }
+}
 
 // ===== REGISTRAR =====
 function registrar() {
@@ -39,7 +56,9 @@ function registrar() {
       mostrarMensagem("Conta criada! Verifique seu email.", "sucesso");
       mostrarLogin();
     })
-    .catch(err => mostrarMensagem(err.message, "erro"));
+.catch(err => mostrarMensagem(tratarErroFirebase(err), "erro"));
+});
+
 
 }
 
@@ -57,7 +76,7 @@ function login() {
       }
       mostrarPainel();
     })
-    .catch(err => mostrarMensagem(err.message, "erro"));
+.catch(err => mostrarMensagem(tratarErroFirebase(err), "erro"));
 }
 
 // ===== PAINEL =====
@@ -75,3 +94,4 @@ function mostrarMensagem(texto, tipo = "sucesso") {
     msg.classList.add("hidden");
   }, 4000);
 }
+
